@@ -4,7 +4,7 @@ from itertools import chain
 def sum_multiply(input):
     return sum([int(n[0]) * int(n[1]) for n in [findall('\d+', m) for m in findall(r'(mul\(\d+,\d+\))', input)]])
 
-with open("input_big.txt") as f:
+with open("inputs/big3.txt") as f:
     r = f.read()
     print("Part 1:", sum_multiply(r))
     parts = list(chain.from_iterable([split(r"(do\(\))", s) for s in split(r"(don't\(\))", r)]))

@@ -1,5 +1,5 @@
 left, right = [], []
-with open("input.txt") as f:
+with open("inputs/big1.txt") as f:
     for line in f:
         line = line.replace("\n", "" )
         pair = line.split("   ")
