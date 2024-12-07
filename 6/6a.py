@@ -38,7 +38,7 @@ def solve_map(map, position, direction):
         map[position[0]][position[1]] = 'X'
         in_map, position, direction = next_position(map, position, direction)
 
-guard_map = [list(l.strip()) for l in open("../inputs/big6.txt")]
+guard_map = [list(l.strip()) for l in open("big6.txt")]
 position = [(i, row.index('^')) for i, row in enumerate(guard_map) if '^' in row][0]
 
 solve_map(guard_map, (position[0]-1,position[1]), '^')

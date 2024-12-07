@@ -60,7 +60,7 @@ def solve_map(source_map, position, direction):
             row[i] = ''.join(col)
         print('\t'.join(row))
 
-guard_map = [list(l.strip()) for l in open("../inputs/small6.txt")]
+guard_map = [list(l.strip()) for l in open("small6.txt")]
 position = [(i, row.index('^')) for i, row in enumerate(guard_map) if '^' in row][0]
 direction = '^'
 
