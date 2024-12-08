@@ -8,12 +8,15 @@ def math(input, intermediate, result):
     if len(input) > 0:
         v = input.pop()
         if intermediate is not None:
-            concatination = math(deepcopy(input), int(concat(str(intermediate), str(v))), result)
-        return max(math(deepcopy(input), v * int_mult, result), math(deepcopy(input), v + int_plus, result), concatination)
+            if math(deepcopy(input), int(concat(str(intermediate), str(v))), result) == result:
+                return result
+        if math(deepcopy(input), v * int_mult, result) == result:
+            return result
+        if math(deepcopy(input), v + int_plus, result) == result:
+            return result
     elif intermediate == result:
         return result
-    else:
-        return 0
+    return 0
 
 equations = {int(l.split(":")[0]): list(map(int, l.split(":")[1].split())) for l in open("big7.txt")}
 sum = 0
