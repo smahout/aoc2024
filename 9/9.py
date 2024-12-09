@@ -28,10 +28,15 @@ print(checksum)
 highest_file = max([num for num in disk_part2 if num != '.'])
 empty_blocks = {}
 file_id_count = {}
+first_occurrence = {}
 start = 0
 length = 0
 for i, v in enumerate(disk_part2):
-    file_id_count[v] = file_id_count[v] + 1 if v in file_id_count else 1
+    if v not in file_id_count:
+        file_id_count[v] = 1
+        first_occurrence[v] = i
+    else:
+        file_id_count[v] += 1
     if v == '.':
         start = i if start is None else start
         length += 1
@@ -46,7 +51,7 @@ while disk_part2[len(disk_part2) - 1] == '.':
 
 for value in list(set([num for num in disk_part2 if num != '.']))[::-1]:
     block_required = file_id_count[value]
-    value_index = disk_part2.index(value)
+    value_index = first_occurrence[value]
     available_blocks = [(empty_blocks[key][0], key) for key in empty_blocks if key >= block_required and len(empty_blocks[key]) > 0]
     if len(available_blocks) == 0:
         continue
