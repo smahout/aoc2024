@@ -19,7 +19,6 @@ for spot, value in enumerate(disk_part1):
 print(checksum)
 
 # Part 2
-used_numbers = []
 highest_file = max([num for num in disk_part2 if num != '.']) # should be a cheaper way for this
 
 while disk_part2[len(disk_part2) - 1] == '.':
@@ -46,13 +45,10 @@ for value in list(set([num for num in disk_part2 if num != '.']))[::-1]:
             disk_part2[disk_part2.index(value)] = '.'
         for x in range(block_required):
             disk_part2[start_empty_block + x] = value
-            # print(disk_part2, x)
 
 
 checksum = 0
 for i, v in enumerate(disk_part2):
     if v != '.':
         checksum += i * int(v)
-print(disk_part2)
 print(checksum)
-print(used_numbers)
