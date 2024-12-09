@@ -62,8 +62,8 @@ for value in list(set([num for num in disk_part2 if num != '.']))[::-1]:
     empty_blocks[empty_block_length].pop(0)
     add_to_dict_list(value_index, block_required, empty_blocks, True)
 
-    while value in disk_part2:
-        disk_part2[disk_part2.index(value)] = '.'
+    for i in range(value_index, value_index + block_required):
+        disk_part2[i] = '.'
     for x in range(block_required):
         disk_part2[empty_index + x] = value
     if empty_block_length - block_required > 0:
