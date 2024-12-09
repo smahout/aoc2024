@@ -1,6 +1,12 @@
 from copy import copy
 
-top = None
+def add_to_dict_list(value, key, dict, sorting=False):
+    if key not in dict:
+        dict[key] = []
+    dict[key].append(value)
+    if sorting:
+        dict[key] = (sorted(dict[key]))
+
 disk_part1 = [int(i / 2) if i % 2 == 0 else '.' for i, num in enumerate(list(open("big.txt").read())) for x in range(int(num))]
 disk_part2 = copy(disk_part1)
 
@@ -19,33 +25,44 @@ for spot, value in enumerate(disk_part1):
 print(checksum)
 
 # Part 2
-highest_file = max([num for num in disk_part2 if num != '.']) # should be a cheaper way for this
+highest_file = max([num for num in disk_part2 if num != '.'])
+empty_blocks = {}
+start = 0
+length = 0
+for i, v in enumerate(disk_part2):
+    if v == '.':
+        start = i if start is None else start
+        length += 1
+    elif start is not None:
+        add_to_dict_list(start, length, empty_blocks)
+        start = None
+        length = 0
 
+empty_blocks.pop(0)
 while disk_part2[len(disk_part2) - 1] == '.':
     disk_part2.pop()
+
 for value in list(set([num for num in disk_part2 if num != '.']))[::-1]:
     block_required = disk_part2.count(value)
-    start_empty_block = None
-    space = None
-    for x, is_this_a_dot in enumerate(disk_part2[:disk_part2.index(value)]):
-        if is_this_a_dot == '.':
-            start_empty_block = x
-            space = None
-            for y, is_this_also_a_dot in enumerate(disk_part2[start_empty_block:]):
-                if is_this_also_a_dot != '.':
-                    space = y
-                    break
-            if space >= block_required:
-                break
-    if value % 100 == 0:
-        print(f"Looking for {value}, block_required {block_required}, found {space} at {start_empty_block}")
-    if space is not None and space >= block_required:
-        # print("Found space!", space, block_required, value, start_empty_block)
-        while value in disk_part2:
-            disk_part2[disk_part2.index(value)] = '.'
-        for x in range(block_required):
-            disk_part2[start_empty_block + x] = value
+    value_index = disk_part2.index(value)
+    available_blocks = [(empty_blocks[key][0], key) for key in empty_blocks if key >= block_required and len(empty_blocks[key]) > 0]
+    if len(available_blocks) == 0:
+        continue
+    available_blocks = sorted(available_blocks, key=lambda block: block[0])
+    empty_index, empty_block_length = available_blocks[0]
+    if value_index <= empty_index:
+        continue
+    empty_blocks[empty_block_length].pop(0)
+    add_to_dict_list(value_index, block_required, empty_blocks, True)
 
+    while value in disk_part2:
+        disk_part2[disk_part2.index(value)] = '.'
+    for x in range(block_required):
+        disk_part2[empty_index + x] = value
+    if empty_block_length - block_required > 0:
+        new_index = empty_index + block_required
+        new_length = empty_block_length - block_required
+        add_to_dict_list(new_index, new_length, empty_blocks, True)
 
 checksum = 0
 for i, v in enumerate(disk_part2):
