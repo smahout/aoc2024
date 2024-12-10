@@ -1,21 +1,18 @@
-def get_neighbours(map, y, x):
+def get_neighbours(map, y, x, increase=1):
+    value = map[y][x]
     result = []
     directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
     for d in directions:
         new_y, new_x = y + d[0], x + d[1]
-        if new_y in map and new_x in map[new_y]:
+        if new_y in map and new_x in map[new_y] and map[new_y][new_x] == value + increase:
             result.append((new_y, new_x))
     return result
 
-def get_increasing_neighbours(map, y, x, increase=1):
-    value = map[y][x]
-    neighbours = get_neighbours(map, y, x)
-    return [(newy,newx) for newy,newx in neighbours if map[newy][newx] == value + increase]
-
+# Part 1
 def get_peaks_for_trailhead(map, y, x):
     if map[y][x] == 9:
         return [(y, x)]
-    neighbours = get_increasing_neighbours(map, y, x)
+    neighbours = get_neighbours(map, y, x)
     if len(neighbours) == 0:
         return []
     results = []
@@ -23,10 +20,11 @@ def get_peaks_for_trailhead(map, y, x):
         [results.append(entry) for entry in get_peaks_for_trailhead(map, neighbouring_y, neighbouring_x)]
     return results
 
+# Part 2
 def get_all_different_trails(map, y, x):
     if map[y][x] == 9:
         return 1
-    neighbours = get_increasing_neighbours(map, y, x)
+    neighbours = get_neighbours(map, y, x)
     if len(neighbours) == 0:
         return 0
     return sum([get_all_different_trails(map, neighbouring_y, neighbouring_x) for neighbouring_y, neighbouring_x in neighbours])
