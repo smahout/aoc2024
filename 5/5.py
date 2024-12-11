@@ -33,7 +33,7 @@ def order_correctly(values, update, rules):
 
 
 rules = {}
-with open("big5.txt") as f:
+with open("big.txt") as f:
     in_rules, updates = f.read().split("\n\n")
 
 in_rules = [rule.strip().split("|") for rule in in_rules.split("\n")]

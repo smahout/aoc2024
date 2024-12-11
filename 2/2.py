@@ -72,7 +72,7 @@ def is_report_saveish(report, try_again=False):
 
 logging.getLogger().setLevel(logging.INFO)
 reports = []
-with open("big2.txt") as f:
+with open("big.txt") as f:
     for line in f:
         line = line.replace("\n", "")
         report = [int(n) for n in line.split(" ")]

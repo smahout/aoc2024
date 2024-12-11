@@ -20,7 +20,7 @@ def math(input, intermediate, result):
     return 0
 
 
-equations = {int(l.split(":")[0]): list(map(int, l.split(":")[1].split())) for l in open("big7.txt")}
+equations = {int(l.split(":")[0]): list(map(int, l.split(":")[1].split())) for l in open("big.txt")}
 sum = 0
 for result in equations:
     sum += math(equations[result][::-1], None, result)

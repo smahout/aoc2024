@@ -1,7 +1,7 @@
 from numpy import flip, array, fliplr, array2string
 
 words = ["XMAS"]  # I thought there would be multiple words in part 2
-grid = array([list(line.strip()) for line in open("big4.txt").readlines()])
+grid = array([list(line.strip()) for line in open("big.txt").readlines()])
 lines = []
 lr_grid = fliplr(grid)
 [(lines.append(grid[:, i]), lines.append(flip(grid[:, i]))) for i in range(grid.shape[0])]  # |

@@ -24,7 +24,7 @@ directions = [
     (-1, +1), (-1, 0), (-1, -1)
 ]
 words = ['XMAS']
-with open("big4.txt") as f:
+with open("big.txt") as f:
     grid = [list(line.strip()) for line in f]
 
 total1 = 0
