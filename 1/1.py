@@ -1,7 +1,7 @@
 left, right = [], []
 with open("big1.txt") as f:
     for line in f:
-        line = line.replace("\n", "" )
+        line = line.replace("\n", "")
         pair = line.split("   ")
         left.append(int(pair[0]))
         right.append(int(pair[1]))

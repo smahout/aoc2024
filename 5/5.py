@@ -1,12 +1,12 @@
 from math import floor
 
 
-
 def make_rule(rules, rule):
     subject, after = rule
     if rules.get(subject) is None:
         rules[subject] = []
     rules[subject].append(after)
+
 
 def check_index_in_update(update, index, rules):
     # Check before
@@ -16,6 +16,7 @@ def check_index_in_update(update, index, rules):
             if update[i] in rules[current]:
                 return False
     return True
+
 
 def order_correctly(values, update, rules):
     for v in values:
@@ -29,6 +30,7 @@ def order_correctly(values, update, rules):
             if len(values) > 0:
                 return order_correctly(values, update, rules)
     return update
+
 
 rules = {}
 with open("big5.txt") as f:
@@ -57,5 +59,5 @@ new_good_updates = []
 for update in bad_updates:
     new_good_updates.append(order_correctly(update, [], rules))
 
-print("Part1: ", sum([int(u[floor(len(u)/2)]) for u in good_updates]))
-print("Part2: ", sum([int(u[floor(len(u)/2)]) for u in new_good_updates]))
+print("Part1: ", sum([int(u[floor(len(u) / 2)]) for u in good_updates]))
+print("Part2: ", sum([int(u[floor(len(u) / 2)]) for u in new_good_updates]))

@@ -4,6 +4,7 @@ from copy import copy
 debug = logging.debug
 info = logging.info
 
+
 def is_report_save(report):
     previous = None
     increasing = None
@@ -23,6 +24,7 @@ def is_report_save(report):
         previous = reading
     return True
 
+
 def is_report_saveish(report, try_again=False):
     increasing = None
     is_safe = True
@@ -30,11 +32,12 @@ def is_report_saveish(report, try_again=False):
     for i in range(len(report)):
         if i == 0:
             continue
-        previous = report[i-1]
+        previous = report[i - 1]
         reading = report[i]
         increasing = reading > previous if increasing is None else increasing
         if abs(reading - previous) > 3 or abs(reading - previous) == 0:
-            debug(f"Problem with DIFFERENCE; {reading} and {previous}, diff is {abs(reading-previous)}. Try again is {try_again}")
+            debug(
+                f"Problem with DIFFERENCE; {reading} and {previous}, diff is {abs(reading - previous)}. Try again is {try_again}")
             is_safe = False
             false_index = i
             break
@@ -58,18 +61,20 @@ def is_report_saveish(report, try_again=False):
         if false_index - 1 == 1:
             split0 = copy(report)
             split0.pop(0)
-            debug(f"Making split1: {split1}. Making split2: {split2}. FIRST PROBLEM ENCOUNTERED ON INDEX ONE. Making split0: {split0}. From source: {report}")
+            debug(
+                f"Making split1: {split1}. Making split2: {split2}. FIRST PROBLEM ENCOUNTERED ON INDEX ONE. Making split0: {split0}. From source: {report}")
             return is_report_saveish(split1) or is_report_saveish(split2) or is_report_saveish(split0)
 
         debug(f"Making split1: {split1}. Making split2: {split2}. From source: {report}")
         return is_report_saveish(split1) or is_report_saveish(split2)
     return is_safe
 
+
 logging.getLogger().setLevel(logging.INFO)
 reports = []
 with open("big2.txt") as f:
     for line in f:
-        line = line.replace("\n", "" )
+        line = line.replace("\n", "")
         report = [int(n) for n in line.split(" ")]
         reports.append(report)
 
