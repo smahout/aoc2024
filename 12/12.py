@@ -105,7 +105,6 @@ for y, row in enumerate(grid):
 counta = 0
 countb = 0
 for flowerbed in flowerbeds:
-    print(flowerbed, flowerbed.area * flowerbed.sides(), flowerbed.sides())
     counta += flowerbed.area * flowerbed.perimeter
     countb += flowerbed.area * flowerbed.sides()
 
