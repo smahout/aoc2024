@@ -11,6 +11,9 @@ class Flowerbed:
         self.east_edges = {str(i): [] for i in range(-1, len(grid)+1)}
 
     def sides(self):
+        # The idea here is we store one which x we found the north and south edges,
+        # and on which y we found the east en west edges. If the difference between them, when sorted, is 1,
+        # they are on consecutive line (0,1 is connected with 0,2, but not with 0,1 is not with 1,2).
         self.north_edges = {key: sorted(items) for key, items in self.north_edges.items()}
         self.south_edges = {key: sorted(items) for key, items in self.south_edges.items()}
         self.west_edges = {key: sorted(items) for key, items in self.west_edges.items()}
