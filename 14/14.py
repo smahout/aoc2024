@@ -31,7 +31,7 @@ for i in range(steps):
         g.step(grid_x, grid_y)
         grid[g.y][g.x] += 1
 
-    if i == 100:
+    if i == 100 - 1:
         p1_grid = grid
     image = Image.fromarray(np.array(grid).astype(np.uint8) * 255, mode='L')
     image.convert('1')
