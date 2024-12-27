@@ -1,5 +1,4 @@
 import timeit
-from functools import cache
 from math import floor
 
 
